@@ -1,12 +1,26 @@
 <template>
 <div class="container">
     <h1>Manage Piles Here</h1>
-    <el-scrollbar height="400px">
-        <p v-for="item in items" :key="item._id" class="scrollbar-demo-item">{{ item._id }}
-            <!-- <el-button type="primary" size="small" class="btn" @click="showDetail(item.username)">Detail</el-button>
-            <el-button type="danger" size="small" class="btn" @click="deleteUser(item.username)">Delete</el-button> -->
-        </p>
-    </el-scrollbar>
+    <el-collapse>
+      <el-collapse-item v-for="item in items" :key="item._id" :title="item._id">
+        <div>
+            latitude:{{item.latitude}}
+        </div>
+        <div>
+            longitude:{{item.longitude}}
+        </div>
+        <div>
+            status:{{item.status}}
+        </div>
+        <div>
+            maxpower:{{item.maxpower}}
+        </div>
+        <div>
+            price:{{item.price}}
+        </div>
+      </el-collapse-item>
+
+    </el-collapse>
 </div>
 </template>
 
@@ -21,14 +35,7 @@ export default {
         }
     },
     methods:{
-        showDetail(value){
-            const target = this.items.filter(item=>item.username==value);
-            // console.log(this.items);
-            alert("user:"+target[0].username + "###password"+target[0].password)
-        },
-        deleteUser(){
-            
-        }
+
     },
 
     created(){

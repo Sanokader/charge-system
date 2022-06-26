@@ -23,21 +23,29 @@ export default {
     methods:{
         showDetail(value){
             const target = this.items.filter(item=>item.username==value);
-            // console.log(this.items);
             alert("user:"+target[0].username + "###password"+target[0].password)
         },
-        deleteUser(){
-            
-        }
-    },
-
-    created(){
-        axios.get('/users')
+        update(){
+axios.get('/users')
         .then((raw)=>{
             this.items = raw.data.users.map((item)=>{
                 return item;
             })
         })
+        },
+        async deleteUser(value){
+            const target = this.items.filter(item=>item.username==value);
+            await axios.get(`/users/deleteOne?username=${target[0].username}&adminname=xiaominwei`)
+            .then((data) => {
+              console.log(data);
+              alert(data.data+"has been deleted")
+              this.update();
+            });
+        }
+    },
+
+    created(){
+        this.update()
     }
 }
 </script>
